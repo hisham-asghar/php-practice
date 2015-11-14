@@ -179,7 +179,7 @@
            </tr>
            <tr>
            <td>
-               <a href="#"><input type="image" src="Capture.PNG" name="btnSubmit"/></a>
+               <a href="#"><input type="submit" name="btnSubmit"/></a>
                   
            <?php
                 if(isset($_REQUEST["btnSubmit"]) == true){
