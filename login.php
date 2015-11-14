@@ -12,7 +12,7 @@
         <form action="login.php" method="POST">   
        <div id="btn">
            
-          <a href="#"><input type="submit" name="btnLogin"></a>
+          <a href="#"><input type="submit" src="btn1.png" name="btnLogin"></a>
            
            <?php
                 if(isset($_REQUEST["btnLogin"]) == true)
@@ -179,7 +179,11 @@
            </tr>
            <tr>
            <td>
+<<<<<<< HEAD
                <a href="#"><input type="submit" name="btnSubmit"/></a>
+=======
+               <a href="#"><input type="submit" src="Capture.PNG" name="btnSubmit"/></a>
+>>>>>>> fdd2820414bcb10992a4e9d43dbc3a0b72e274c5
                   
            <?php
                 if(isset($_REQUEST["btnSubmit"]) == true){

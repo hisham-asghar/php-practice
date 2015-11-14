@@ -3,10 +3,10 @@
     <head>
     </head>
     <body>
-        <div>
-        <a href="#" style="text-decoration:none" name="add">Add a job</a><br /><br />
-        <a href="#" style="text-decoration:none" name="view">View all jobs</a>
-        </div>
+        <form>
+        <input type="submit" name="add" value="Add a job" /><br /><br />
+        <input type="submit" name="view" value="View all jobs" />
+        </form>
          <?php
                 if(isset($_REQUEST["add"]) == true){
                 header('Location: addJob.php');
