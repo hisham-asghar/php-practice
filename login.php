@@ -1,5 +1,4 @@
 <?php include('conn3.php'); ?>
-
 <html>
 <head>
     <title>Login</title>
@@ -13,12 +12,12 @@
         <form action="login.php" method="POST">   
        <div id="btn">
            
-          <a href="#"><input type="image" src="btn1.png" name="btnLogin"/></a>
+          <a href="#"><input type="submit" name="btnLogin"></a>
            
            <?php
-                if(isset($_REQUEST["btnLogin"]) == true){
-                    
-                $uname = $_REQUEST["txtName"];
+                if(isset($_REQUEST["btnLogin"]) == true)
+                {
+                $uname = $_REQUEST["txtEmail"];
    
                 $pswd = $_REQUEST["txtPassword"];
    
@@ -26,8 +25,9 @@
                 {
                     header('Location: home.php');
                 }
-    
+                }
            ?>
+
 
         </div>
          <div id="passwd">
