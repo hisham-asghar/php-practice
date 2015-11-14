@@ -1,0 +1,48 @@
+#body{
+    font-family:Sans-serif;
+    font-size:15px;
+    font-color:aliceblue;
+}
+
+#header{
+    background-color:#3b5998;
+    width:600px;
+    height:90px;
+}
+
+#btn{
+    float:right;
+    margin-top:30px;
+    margin-right:40px;
+}
+
+#passwd{
+    float:right;
+    margin:5px;
+    margin-top:10px;
+}
+
+#Email{
+    float:right;
+    margin:5px;
+    margin-top:10px;
+    margin-right:20px;
+}
+
+#main{
+    width:600px;
+    height:600px;
+    background-color:#dfe3ee;
+}
+
+#register{
+    margin:10px;
+    margin-top:20px;
+    float:left;
+}
+
+#float{
+    float:right;
+    width:500px;
+}
+
