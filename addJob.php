@@ -49,7 +49,7 @@ if(isset($_REQUEST['btnupload']))
                    
                     
                     if(empty($title)){
-                        $error = "What is the job title?" ;
+                        $error = "What is the title of the Job?" ;
                     }
                     elseif(empty($company)){
                         $error1 = "What is the name of the Company?" ;
