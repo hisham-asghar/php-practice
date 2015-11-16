@@ -18,7 +18,7 @@ session_start(); // Starting Session
         </form>
          <?php
                 if(isset($_REQUEST["add"]) == true){
-                header('Location: addJob.php');
+                header('Location: addJob2.php');
             }
                 if(isset($_REQUEST["view"]) == true){
                 header('Location: viewJobs.php');
