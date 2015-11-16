@@ -16,7 +16,7 @@ session_start();
             border-color:grey;
         }
     </style>
-</head>
+    </head>
 <body>
     
 <?php
