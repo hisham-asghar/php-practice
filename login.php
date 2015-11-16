@@ -1,4 +1,7 @@
 <?php include('conn3.php'); ?>
+<?php
+session_start(); 
+?>
 <html>
 <head>
     <title>Login</title>
@@ -6,28 +9,95 @@
 </head>
     
 <body id="body">
+    <?php
+            $error = "";
+            $uname = "";
+            $pswd = "";
+                if(isset($_REQUEST["btnLogin"]) == true)
+                {
+                    $uname = $_REQUEST["txtEmail"];
+   
+                    $pswd = $_REQUEST["txtPassword"];
+                    
+                     if (empty($uname) || empty($pswd)) {
+	                       $error = "Email or Password is invalid";
+                     }
+   
+                     else{		   
+                         $sql = "SELECT * FROM mem where EmailID ='$uname' and Password='$pswd'";
+		
+                         $result = mysqli_query($conn, $sql);
+	   
+                         $NumRecords = mysqli_num_rows($result);
+		  
+                         if($NumRecords == 1)
+                         {
+                             $_SESSION['user']=$uname;
+                             header('Location: home.php');
+                         }
+                         else {
+                             $error = "EmailID or Password is invalid";
+                         }
+                     }
+                }
+           ?>
+
+            <?php
+    
+                $error1="";
+                $error2="";
+                $error3="";
+                $error4="";
+                if(isset($_REQUEST["btnSubmit"]) == true){
+                    $first = $_REQUEST["txtFirst"];
+                    $last = $_REQUEST["txtLast"];
+                    $uname = $_REQUEST["txtUser"];
+                    $uid = $_REQUEST["txtEmail"];
+                    $pswd = $_REQUEST["txtPasswd"];
+                    $gender = $_REQUEST["gender"];
+                    
+                    if(empty($uid)){
+                        $error3 = "What is your Email?" ;
+                    }
+                    elseif(empty($uname)){
+                        $error1 = "What is your Username?" ;
+                    }
+                     elseif(empty($pswd)){
+                        $error2 = "What is your Password?" ;
+                    }
+                    elseif(empty($gender)){
+                        $error4 = "Please choose a gender" ;
+                    }
+                    else{
+                        $sql = "INSERT INTO mem (Username, Password, EmailID, Gender,FirstName, LastName)
+				    VALUES ('$uname', '$pswd', '$uid', '$gender', '$first', '$last')";
+                    }
+                    
+                    if (mysqli_query($conn, $sql) === TRUE) {
+				    $last_id = mysqli_insert_id($conn);
+                        echo "New record created successfully. Last inserted ID is: " . $last_id;
+                        echo "<script>
+                              alert('Your account has been created. Login to continue.');
+                              </script>";
+			        }   
+                    else {
+				        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+			        }
+		
+                    
+            }
+    
+           ?>
+               
     
     <div id="header">
         
         <form action="login.php" method="POST">   
        <div id="btn">
            
-          <a href="#"><input type="submit" src="btn1.png" name="btnLogin"></a>
+          <input type="submit" value="Login" name="btnLogin" style="background-color:blue">
            
-           <?php
-                if(isset($_REQUEST["btnLogin"]) == true)
-                {
-                $uname = $_REQUEST["txtEmail"];
-   
-                $pswd = $_REQUEST["txtPassword"];
-   
-                if($uname == "ayesha@gmail.com" && $pswd == "ayesha")
-                {
-                    header('Location: home.php');
-                }
-                }
-           ?>
-
+           
 
         </div>
          <div id="passwd">
@@ -44,15 +114,23 @@
              <input type="text" name="txtEmail" /><br />
              <input type="checkbox" name="remember" style="color:aliceblue;margin-left:0px;" ><label                                  style="color:darkgrey;font-weight:normal">&nbsp;&nbsp;Keep me logged in</label><br />            
         </div>
+              <?php if($error != ""){
+		       echo "<span style='background-color:red;color:white;float:right;margin-top:20px;'>".$error."</span>";
+             }
+	
+	       ?>
+    
       </div>
+        
         </form>
     
+      
 
     <div id="main">
         
     <div id="float">
        <form action="login.php" method="POST">
-       <table id="register">
+       <table id="register" style="margin-left:40px;">
            <tr>
                <td>
                    <h1 style="margin:0px;padding:0px;">Sign Up</h1>
@@ -65,23 +143,41 @@
            </tr>
            <tr>
                <td>
-               <input type="text" placeholder="First Name" id="txtFirst" style="height:37px;width:170px;font-size:18px;" />
-               <input type="text" placeholder="Last Name" id="txtLast" style="height:37px;width:170px;font-size:18px;"/><br /><br />
+               <input type="text" placeholder="First Name" name="txtFirst" style="height:37px;width:170px;font-size:18px;" />
+               <input type="text" placeholder="Last Name" name="txtLast" style="height:37px;width:170px;font-size:18px;"/><br /><br />
                </td>
            </tr>
            <tr>
                <td>
-                <input type="text" placeholder="Email or Number" id="txtEmail" style="height:37px;width:344px;font-size:18px;" /><br /><br />
+                   <?php if($error3 != ""){
+                        echo "<span style='color:white;background-color:red;'>".$error3."</span>";
+                    }
+	
+	               ?>
+                <input type="text" placeholder="Email or Number" name="txtEmail" style="height:37px;width:344px;font-size:18px;" /><br /><br />
                </td>
            </tr>
            <tr>
                <td>
-                <input type="text" placeholder="Username" id="txtUser" style="height:37px;width:344px;font-size:18px;" /><br /><br />
+                   <?php if($error1 != ""){
+                        echo "<span style='color:white;background-color:red;'>".$error1."</span>";
+                    }
+	
+	               ?>
+                <input type="text" placeholder="Username" name="txtUser" style="height:37px;width:344px;font-size:18px;" />
+                   
+                   <br /><br />
+                   
                </td>
            </tr>
            <tr>
                <td>
-                <input type="text" placeholder="New Password" id="txtPasswd" style="height:37px;width:344px;font-size:18px;" /><br /><br />
+                   <?php if($error2 != ""){
+                        echo "<span style='color:white;background-color:red;'>".$error2."</span>";
+                    }
+	
+	               ?>
+                <input type="text" placeholder="New Password" name="txtPasswd" style="height:37px;width:344px;font-size:18px;" /><br /><br />
                </td>
            </tr>
            <tr>
@@ -173,25 +269,21 @@
            </tr>
            <tr>
                <td>
+                   <?php if($error4 != ""){
+                        echo "<span style='color:white;background-color:red;'>".$error4."</span>";
+                    }
+	
+	               ?>
                     <input type="radio" id="radioFeMale" name="gender" checked="checked" />&nbsp;Female&nbsp;&nbsp;
                     <input type="radio" id="radioMale" name="gender" />&nbsp;Male<br /><br /><br />
                </td>
            </tr>
            <tr>
            <td>
-<<<<<<< HEAD
-               <a href="#"><input type="submit" name="btnSubmit"/></a>
-=======
-               <a href="#"><input type="submit" src="Capture.PNG" name="btnSubmit"/></a>
->>>>>>> fdd2820414bcb10992a4e9d43dbc3a0b72e274c5
+               <input type="submit" value="Sign Up" name="btnSubmit" style="background-color:green;color:white;width:150px;height:40px;"/>
+
                   
-           <?php
-                if(isset($_REQUEST["btnSubmit"]) == true){
-                echo "button is pressed";
-            }
-    
-           ?>
-               
+           
            </td>
            </tr>
            
