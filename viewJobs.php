@@ -1,12 +1,29 @@
+<?php include('conn3.php'); ?>
+<?php
+session_start(); 
+
+	if(isset($_SESSION["user"])==false)
+	{
+		header('Location:login.php');
+	}
+?>
 <html>
 <head>
+    <style>
+        .test{
+            borderstyle:solid;
+            border-width:1px;
+            border-color:grey;
+        }
+    </style>
 </head>
 <body>
+    
 <?php
-if(isset($_REQUEST["btnShow"]) == true)
-		{
+    
+
 			
-			$sql = "SELECT id,name,city,age FROM student";
+			$sql = "SELECT JobTitle, CompanyName, City from Jobs";
 			$result = mysqli_query($conn, $sql);
 
 			$recordsFound = mysqli_num_rows($result);
@@ -17,16 +34,17 @@ if(isset($_REQUEST["btnShow"]) == true)
 				echo "<table>";
 				while($row = mysqli_fetch_assoc($result)) {
 					echo "<tr class='test'>";
-					echo "<td><a href='#'>".$row['id']." </a></td>";
-					echo "<td>".$row['name']."</td>";
-					echo "<td>".$row['city']."</td>";
+					echo "<td><a href='#'>".$row['JobTitle']."</a></td>"."<br />";
+                    echo "</tr>" ;
+                    echo "<tr><td>".$row['CompanyName']--."</td>";
+                    echo "<td>".$row['City']."</td>";
 					echo "</tr>";
 				}
 				echo "</table>";
 				echo "</div>";
 				}
 				
-        }
+        
 ?>
 </body>
 </html>

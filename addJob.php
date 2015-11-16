@@ -39,9 +39,13 @@ if(isset($_REQUEST['btnupload']))
 <?php
     $title="";
     $company="";
+    $error="";
+    $error1="";
             if(isset($_REQUEST["btnSave"]) == true){
                     $title = $_REQUEST["title"];
                     $company = $_REQUEST["Company"];
+                    $city = $_REQUEST["City"];
+                   
                    
                     
                     if(empty($title)){
@@ -52,13 +56,13 @@ if(isset($_REQUEST['btnupload']))
                     }
                 
                     else{
-                        $sql = "INSERT INTO Jobs (JobTitle, CompanyName)
-				    VALUES ('$title', '$company')";
+                        $sql = "INSERT INTO Jobs (JobTitle, CompanyName, City)
+				    VALUES ('$title', '$company', '$city')";
                     }
                     
                     if (mysqli_query($conn, $sql) === TRUE) {
 				    $last_id = mysqli_insert_id($conn);
-                        echo "New record created successfully. Last inserted ID is: " . $last_id;
+                        echo "New Job has been added successfully. Last inserted ID is: " . $last_id;
                         echo "<script>
                               alert('New Job has been added.');
                               </script>";
@@ -74,13 +78,13 @@ if(isset($_REQUEST['btnupload']))
     
     
      <h1> Hello  <?php echo $_SESSION['user']; ?> </h1>
-     <form action="home.php" method="POST">
+     <form action="addJob.php" method="POST">
          <table>
              <tr>
                  <td>
                 Job Title:
                  </td>
-                 <td><input type="text" name="title" /></td>
+                 <td><input type="text" id="title" name="title" /></td>
                  <td><?php if($error != ""){
                         echo "<span style='color:white;background-color:red;'>".$error."</span>";
                     }
@@ -89,7 +93,7 @@ if(isset($_REQUEST['btnupload']))
              </tr>
              <tr><td>
                  Company: </td>
-                 <td><input type="text" name="Company" /></td>
+                 <td><input type="text" id="Company" name="Company" /></td>
                  <td><?php if($error1 != ""){
                         echo "<span style='color:white;background-color:red;'>".$error1."</span>";
                     }
@@ -109,7 +113,7 @@ if(isset($_REQUEST['btnupload']))
              <tr><td>Logo image:
                  </td>
                  <td>
-                      <form action="" method="POST" enctype="multipart/form-data">
+                      <form action="addJob.php" method="POST" enctype="multipart/form-data">
 		              <input type="file" id="userpic" name="userpic"/><br>
 		              <input type="submit" id="btnupload" name="btnupload" value="Upload Pic"/>
 	                  </form>
