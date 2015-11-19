@@ -4,21 +4,28 @@ session_start();
 
 	if(isset($_SESSION["user"])==false)
 	{
-		header('Location:login.php');
+		header('Location:login2.php');
 	}
 ?>
 <html>
 <head>
-    <style>
-        .test{
-            borderstyle:solid;
-            border-width:1px;
-            border-color:grey;
-        }
+    <style type="text/css">
+        table, tr ,td {
+            border: 1px solid #990b05;
+            width: 250px;
+            height: 45px;
+}
     </style>
     </head>
 <body>
+   <?php
     
+                        if(isset($_REQUEST["edit"]) == true){
+                            header('Location:addJob2.php');
+                        }
+                        
+                       
+    ?>
 <?php
     
 
@@ -33,13 +40,18 @@ session_start();
 				echo "<div class='box'>";
 				echo "<table>";
 				while($row = mysqli_fetch_assoc($result)) {
+                    echo "<table>";
 					echo "<tr class='test'>";
-					echo "<td><a href='#'>".$row['JobTitle']."</a></td>"."<br />";
-                    echo "</tr>" ;
-                    echo "<tr><td>".$row['CompanyName']--."</td>";
-                    echo "<td>".$row['City']."</td>";
-					echo "</tr>";
+					echo "<td ><a href='#'>".$row['JobTitle']."</a><br />";
+                    echo $row['CompanyName']."&nbsp&nbsp&nbsp&nbsp".$row['City']."<br><br>" ;
+                    echo "<input type='submit' name='edit' value='Edit' />" ;                    
+                    echo "<input type='submit' name='delete' value='Delete' /></td>";
+                       
+                    echo "</tr>";
+                    
 				}
+                  
+                        
 				echo "</table>";
 				echo "</div>";
 				}

@@ -3,7 +3,7 @@ session_start(); // Starting Session
 
 	if(isset($_SESSION["user"])==false)
 	{
-		header('Location:login.php');
+		header('Location:login2.php');
 	}
 
 ?>

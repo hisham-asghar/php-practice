@@ -5,7 +5,55 @@ session_start();
 <html>
 <head>
     <title>Login</title>
-     <link rel="stylesheet" href="login.css">
+     <link rel="stylesheet" href="login2.css">
+
+    <script src="jquery.js" type="text/javascript"></script>
+<script>
+        
+	$(document).ready(function(){
+		
+		
+		
+		$("#btnSubmit").click(function(){
+		
+			var f = $("#txtFirst").val();
+			var l = $("#txtLast").val();
+			var e = $("#txtEmail").val();
+			var u = $("#txtUser").val();
+            var p = $("#txtPasswd").val();
+			var m = $("#month").val();
+			var d = $("#day").val();
+			var y = $("#year").val();
+            var g = $("#gender").val();
+            
+            
+			var data = {"action": "save","Username":u, "Password" : p, "EmailID":e, "Gender" : g,"FirstName":f, "LastName":l,"Month":m,"Day":d,"Year":y};
+		
+			var settings= {
+				type: "POST",
+				dataType: "json",
+				url: "response.php",
+				data: data,
+				success: function(response) {
+					alert("Record saved with Id:" + response.data);
+					/*
+					var v = response.data;
+					console.log(typeof response.data);
+					console.log(v.a);
+					*/
+				},
+				error: function (err, type, httpStatus) {
+				
+				}
+			};
+			
+			$.ajax(settings);
+			console.log('request sent');
+			return false;			
+		});
+    });
+        
+    </script>
 </head>
     
 <body id="body">
@@ -16,9 +64,8 @@ session_start();
                 if(isset($_REQUEST["btnLogin"]) == true)
                 {
                     $uname = $_REQUEST["txtEmail"];
-                    
+   
                     $pswd = $_REQUEST["txtPassword"];
-                    
                     
                      if (empty($uname) || empty($pswd)) {
 	                       $error = "Email or Password is invalid";
@@ -43,61 +90,12 @@ session_start();
                 }
            ?>
 
-            <?php
-    
-                $error1="";
-                $error2="";
-                $error3="";
-                $error4="";
-                if(isset($_REQUEST["btnSubmit"]) == true){
-                    $first = $_REQUEST["txtFirst"];
-                    $last = $_REQUEST["txtLast"];
-                    $uname = $_REQUEST["txtUser"];
-                    $uid = $_REQUEST["txtEmail"];
-                    $pswd = $_REQUEST["txtPasswd"];
-                    $gender = $_REQUEST["gender"];
-                    $month = $_REQUEST["month"];
-                    $date = $_REQUEST["date"];
-                    $year = $_REQUEST["year"];
-                    
-                    
-                    if(empty($uid)){
-                        $error3 = "What is your Email?" ;
-                    }
-                    elseif(empty($uname)){
-                        $error1 = "What is your Username?" ;
-                    }
-                     elseif(empty($pswd)){
-                        $error2 = "What is your Password?" ;
-                    }
-                    elseif(empty($gender)){
-                        $error4 = "Please choose a gender" ;
-                    }
-                    else{
-                        $sql = "INSERT INTO mem (Username, Password, EmailID, Gender, FirstName,  LastName, Month, Day, Year)
-				    VALUES ('$uname', '$pswd', '$uid', '$gender', '$first', '$last','$month','$date','$year')";
-                    }
-                    
-                    if (mysqli_query($conn, $sql) === TRUE) {
-				    $last_id = mysqli_insert_id($conn);
-                        echo "New record created successfully. Last inserted ID is: " . $last_id;
-                        echo "<script>
-                              alert('Your account has been created. Login to continue.');
-                              </script>";
-			        }   
-                    else {
-				        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-			        }
-		
-                    
-            }
-    
-           ?>
+            
                
     
     <div id="header">
         
-        <form action="login.php" method="POST">   
+        <form action="login2.php" method="POST">   
        <div id="btn">
            
           <input type="submit" value="Login" name="btnLogin" style="background-color:blue">
@@ -134,7 +132,7 @@ session_start();
     <div id="main">
         
     <div id="float">
-       <form action="login.php" method="POST">
+       <form action="login2.php" method="POST">
        <table id="register" style="margin-left:40px;">
            <tr>
                <td>
@@ -148,28 +146,20 @@ session_start();
            </tr>
            <tr>
                <td>
-               <input type="text" placeholder="First Name" name="txtFirst" style="height:37px;width:170px;font-size:18px;" />
-               <input type="text" placeholder="Last Name" name="txtLast" style="height:37px;width:170px;font-size:18px;"/><br /><br />
+               <input type="text" placeholder="First Name" id= "txtFirst" name="txtFirst" style="height:37px;width:170px;font-size:18px;" />
+               <input type="text" placeholder="Last Name" id= "txtLast" name="txtLast" style="height:37px;width:170px;font-size:18px;"/><br /><br />
                </td>
            </tr>
            <tr>
                <td>
-                   <?php if($error3 != ""){
-                        echo "<span style='color:white;background-color:red;'>".$error3."</span>";
-                    }
-	
-	               ?>
-                <input type="text" placeholder="Email or Number" name="txtEmail" style="height:37px;width:344px;font-size:18px;" /><br /><br />
+                   
+                <input type="text" placeholder="Email or Number" name="txtEmail" id="txtEmail" style="height:37px;width:344px;font-size:18px;" /><br /><br />
                </td>
            </tr>
            <tr>
                <td>
-                   <?php if($error1 != ""){
-                        echo "<span style='color:white;background-color:red;'>".$error1."</span>";
-                    }
-	
-	               ?>
-                <input type="text" placeholder="Username" name="txtUser" style="height:37px;width:344px;font-size:18px;" />
+                   
+                <input type="text" placeholder="Username" id= "txtUser" name="txtUser" style="height:37px;width:344px;font-size:18px;" />
                    
                    <br /><br />
                    
@@ -177,12 +167,8 @@ session_start();
            </tr>
            <tr>
                <td>
-                   <?php if($error2 != ""){
-                        echo "<span style='color:white;background-color:red;'>".$error2."</span>";
-                    }
-	
-	               ?>
-                <input type="text" placeholder="New Password" name="txtPasswd" style="height:37px;width:344px;font-size:18px;" /><br /><br />
+                   
+                <input type="text" placeholder="New Password" id="txtPasswd" name="txtPasswd" style="height:37px;width:344px;font-size:18px;" /><br /><br />
                </td>
            </tr>
            <tr>
@@ -192,7 +178,7 @@ session_start();
            </tr>
            <tr>
                <td>
-                    <select name="month">
+                    <select name="month" id="month">
                     <option value="Month"> Month</option>
                     <option value="jan">Jan</option>
                     <option value="feb">Feb</option>
@@ -207,8 +193,8 @@ session_start();
                     <option value="nov">Nov</option>
                     <option value="dec">Dec</option>
                    </select>
-                    <select name="date">
-                    <option value="Day">Day</option>
+                    <select name="day" id="day">
+                    <option value="">Day</option>
                     <option value="1">1</option>
                     <option value="2">1</option>
                     <option value="3">3</option>
@@ -241,18 +227,18 @@ session_start();
                     <option value="30">30</option>
                     <option value="31">31</option>
                     </select>
-                    <select name="year">
+                    <select name="year" id="year">
                     <option value="Year">Year</option>
                     <option value="1990">1990</option>
                     <option value="1991">1991</option>     
-                    <option value="1992">1992</option>
-                    <option value="1993">1993</option>
-                    <option value="1994">1994</option>
-                    <option value="1995">1995</option>
-                    <option value="1996">1996</option>
-                    <option value="1997">1997</option>
-                    <option value="1998">1998</option>
-                    <option value="1999">1999</option>
+                    <option value="1992">1992</option>     
+                    <option value="1993">1993</option>     
+                    <option value="1994">1994</option>     
+                    <option value="1995">1995</option>     
+                    <option value="1996">1996</option>     
+                    <option value="1997">1997</option>     
+                    <option value="1998">1998</option>     
+                    <option value="1999">1999</option>     
                     <option value="2000">2000</option>
                     <option value="2001">2001</option>
                     <option value="2002">2002</option>
@@ -267,25 +253,21 @@ session_start();
                     <option value="2011">2011</option>
                     <option value="2012">2012</option>
                     <option value="2013">2013</option>
-                    <option value="2015">2014</option>
-                    <option value="2016">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2015">2015</option>
                    </select><br /><br />
                </td>
            </tr>
            <tr>
                <td>
-                   <?php if($error4 != ""){
-                        echo "<span style='color:white;background-color:red;'>".$error4."</span>";
-                    }
-	
-	               ?>
-                    <input type="radio" id="radioFeMale" name="gender" />&nbsp;Female&nbsp;&nbsp;
-                    <input type="radio" id="radioMale" name="gender" />&nbsp;Male<br /><br /><br />
+                   
+                    <input type="radio" id="radioFeMale" name="gender"  value="Male"  />&nbsp;Male&nbsp;&nbsp;
+                    <input type="radio" id="radioMale" name="gender"  value="Female"/>&nbsp;Female<br /><br /><br />
                </td>
            </tr>
            <tr>
            <td>
-               <input type="submit" value="Sign Up" name="btnSubmit" style="background-color:green;color:white;width:150px;height:40px;"/>
+               <input type="submit" value="Sign Up" id="btnSubmit" name="btnSubmit" style="background-color:green;color:white;width:150px;height:40px;"/>
 
                   
            
