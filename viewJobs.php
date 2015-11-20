@@ -12,7 +12,7 @@ session_start();
     <style type="text/css">
         table, tr ,td {
             border: 1px solid #990b05;
-            width: 250px;
+            width: 300px;
             height: 45px;
 }
     </style>
@@ -26,11 +26,12 @@ session_start();
                         
                        
     ?>
+    
 <?php
     
 
 			
-			$sql = "SELECT JobTitle, CompanyName, City from Jobs";
+			$sql = "SELECT JobTitle, CompanyName, City,LogoImage from Jobs";
 			$result = mysqli_query($conn, $sql);
 
 			$recordsFound = mysqli_num_rows($result);
@@ -38,16 +39,45 @@ session_start();
 			if ($recordsFound > 0) {
 			
 				echo "<div class='box'>";
-				echo "<table>";
+			
+                $i=1;
 				while($row = mysqli_fetch_assoc($result)) {
                     echo "<table>";
-					echo "<tr class='test'>";
-					echo "<td ><a href='#'>".$row['JobTitle']."</a><br />";
-                    echo $row['CompanyName']."&nbsp&nbsp&nbsp&nbsp".$row['City']."<br><br>" ;
-                    echo "<input type='submit' name='edit' value='Edit' />" ;                    
-                    echo "<input type='submit' name='delete' value='Delete' /></td>";
-                       
-                    echo "</tr>";
+                    if($i%2 != 0){
+                        
+                        echo "<tr class='test'>";
+                        
+                        echo "<td ><div style='float:left;'><a href='#'>".$row['JobTitle']."</a><br />";
+                        echo $row['CompanyName']."&nbsp&nbsp&nbsp&nbsp".$row['City']."<br><br>" ;
+                        echo "<input type='submit' name='edit' value='Edit' />" ;                    
+                        echo "<input type='submit' name='delete' value='Delete' /></div>";
+                        echo "<div style='float:right;'>";
+						echo "<img src='img/{$row['LogoImage']}' width='100px' height='100px' class='image' />";
+					    echo "</div>";
+                        echo "</td>";
+                        
+                        $i= $i+1;
+                        
+                    
+                    }
+                    else{
+                        echo "<td ><div style='float:left;'><a href='#'>".$row['JobTitle']."</a><br />";
+                        echo $row['CompanyName']."&nbsp&nbsp&nbsp&nbsp".$row['City']."<br><br>" ;
+                        echo "<input type='submit' name='edit' value='Edit' />" ;                    
+                        echo "<input type='submit' name='delete' value='Delete' /></div>";
+                        echo "<div style='float:right;'>";
+						echo "<img src='img/{$row['LogoImage']}' width='100px' height='100px' class='image' />";
+					    echo "</div>";
+                      
+                        echo "</td>";
+                        echo "</tr>";
+                        $i= $i+1;
+                    }
+                    
+                    
+					
+                    
+					
                     
 				}
                   

@@ -11,7 +11,7 @@
 		$result["data"] = $arr;
 		echo json_encode($result);
 	}
-	else if($action == "save")
+	if($action == "save")
 	{
 		$uname = $_POST["Username"];
 		$pswd = $_POST["Password"];
@@ -24,18 +24,21 @@
         $year = $_POST["Year"];
         
 		$sql = "INSERT INTO mem (Username, Password, EmailID, Gender, FirstName, LastName, Month, Day, Year )
-			VALUES ('$uname', '$pswd', '$eid', '$gender', '$fname', '$lname', '$month', '$day', '$year')";
+		VALUES ('$uname', '$pswd', '$eid', '$gender', '$fname', '$lname', '$month', '$day', '$year')";
 		
 		if (mysqli_query($conn, $sql) === TRUE) {
+            
 			$last_id = mysqli_insert_id($conn);
 			$result["data"] = $last_id;
 		} else {
 			$result["data"] = "Error: ". mysqli_error($conn);
 		}
 		
-		//$result["data"] = "abc";
+		//$result["data"] = $uname;
+    
 		echo json_encode($result);
         
 	}//end of save	
+  }
 	
 ?>

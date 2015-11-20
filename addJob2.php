@@ -45,6 +45,15 @@ if(isset($_REQUEST['btnupload']))
                     $title = $_REQUEST["title"];
                     $company = $_REQUEST["Company"];
                     $city = $_REQUEST["City"];
+                    $temp = explode(".", $_FILES["userpic"]["name"]);
+	
+	                //Create a unique name by using time and append the actual extension
+	                $new_name = round(microtime(true)) . '.' . end($temp);
+	
+	                //save file into "img" folder with the name stored '$new_name' variable
+	                move_uploaded_file($_FILES["userpic"]["tmp_name"], "img//".$new_name);
+
+	               //store image name in database
                    
                    
                     

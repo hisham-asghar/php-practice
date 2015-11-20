@@ -17,19 +17,27 @@ session_start();
 		$("#btnSubmit").click(function(){
 		
 			var f = $("#txtFirst").val();
+            
 			var l = $("#txtLast").val();
+            
 			var e = $("#txtEmail").val();
+            
 			var u = $("#txtUser").val();
+            
             var p = $("#txtPasswd").val();
+          
 			var m = $("#month").val();
+            
 			var d = $("#day").val();
+            
 			var y = $("#year").val();
+            
             var g = $("#gender").val();
-            
-            
+           
 			var data = {"action": "save","Username":u, "Password" : p, "EmailID":e, "Gender" : g,"FirstName":f, "LastName":l,"Month":m,"Day":d,"Year":y};
 		
 			var settings= {
+                
 				type: "POST",
 				dataType: "json",
 				url: "response.php",
@@ -40,7 +48,7 @@ session_start();
 					var v = response.data;
 					console.log(typeof response.data);
 					console.log(v.a);
-					*/
+					k */
 				},
 				error: function (err, type, httpStatus) {
 				
@@ -177,7 +185,7 @@ session_start();
                </td>
            </tr>
            <tr>
-               <td>
+               <td class= "date">
                     <select name="month" id="month">
                     <option value="Month"> Month</option>
                     <option value="jan">Jan</option>
@@ -196,7 +204,7 @@ session_start();
                     <select name="day" id="day">
                     <option value="">Day</option>
                     <option value="1">1</option>
-                    <option value="2">1</option>
+                    <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -261,8 +269,8 @@ session_start();
            <tr>
                <td>
                    
-                    <input type="radio" id="radioFeMale" name="gender"  value="Male"  />&nbsp;Male&nbsp;&nbsp;
-                    <input type="radio" id="radioMale" name="gender"  value="Female"/>&nbsp;Female<br /><br /><br />
+                 <!-- <input type="radio" id="radioFeMale" name="gender"  value="Male"  />&nbsp;Male&nbsp;&nbsp; */-->
+                    <input type="radio" id="gender" name="gender"  value="Female"/>&nbsp;Female<br /><br /><br />
                </td>
            </tr>
            <tr>
